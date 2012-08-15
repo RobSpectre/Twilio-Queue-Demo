@@ -44,6 +44,12 @@ def calljoey():
         dial.client("joey")
     return str(response)
 
+@app.route('/hangup', methods=['POST'])
+def hangup():
+    response = twiml.Response()
+    response.hangup()
+    return str(response)
+
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
