@@ -8,13 +8,13 @@ import os
 app = flask.Flask(__name__)
 
 
-@app.route('/queue', methods=['POST'])
+@app.route('/queue', methods=['GET', 'POST'])
 def queue():
     response = twiml.Response()
     response.enqueue("GA Demo Night", wait_url="/wait")
     return str(response)
 
-@app.route('/wait', methods=['POST'])
+@app.route('/wait', methods=['GET', 'POST'])
 def wait():
     response = twiml.Response()
     response.say("You are number %s in line.  Please hold." %
