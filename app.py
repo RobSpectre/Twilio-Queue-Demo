@@ -1,6 +1,7 @@
 import flask
-from twilio import twiml
 from flask import request
+from twilio import twiml
+from twilio.util import TwilioCapability
 import os
 
 
@@ -26,6 +27,21 @@ def dial():
     response = twiml.Response()
     with response.dial() as dial:
         dial.queue("Queue Demo")
+    return str(response)
+
+@app.route('/client')
+def client():
+    capability = TwilioCapability(os.environ.get('TWILIO_ACCOUNT_SID'),
+            os.environ.get('TWILIO_AUTH_TOKEN'))
+    capability.allow_client_incoming('joey')
+    token = capability.generate()
+    return flask.render_template('client.html', token=token)
+
+@app.route('/calljoey', methods=['POST'])
+def calljoey():
+    response = twiml.Response()
+    with response.dial() as dial:
+        dial.client("joey")
     return str(response)
 
 
