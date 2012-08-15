@@ -201,6 +201,11 @@ This demo requires the following software to be installed on your machine:
 * [git](http://git-scm.com/downloads)
 * [Heroku toolbelt](https://toolbelt.heroku.com/)
 
+Optionally, you can install these tools to make life easier.
+
+* [make](http://www.gnu.org/software/make/)
+* [foreman](http://ddollar.github.com/foreman/)
+
 ### Getting Started 
 
 1) Grab latest source
