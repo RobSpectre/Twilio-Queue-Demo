@@ -31,17 +31,30 @@ class TwiMLTest(unittest.TestCase):
             'To': '+16666666666',
             'CallStatus': 'ringing',
             'ApiVersion': '2010-04-01',
-            'Direction': 'inbound'}
+            'Direction': 'inbound',
+            'QueuePosition': '1'}
         if digits:
             params['Digits'] = digits
         return self.app.post(path, data=params)
 
 
 class ExampleTests(TwiMLTest):
-    def test_sms(self):
-        response = self.sms("Test")
+    def test_queue(self):
+        response = self.call(path='/queue')
         self.assertTwiML(response)
+        self.assertTrue('Enqueue' in response.data, "Did not find Enqueue " \
+                "verb in the response, instead: %s" % response.data)
 
-    def test_voice(self):
-        response = self.call()
+    def test_wait(self):
+        response = self.call(path='/wait')
         self.assertTwiML(response)
+        self.assertTrue('Say' in response.data, "Did not find Say " \
+                "announcement in wainting room, instead: %s" % response.data)
+        self.assertTrue('Play' in response.data, "Did not find hold " \
+                "music in waiting room, instead %s" % response.data)
+
+    def test_dial(self):
+        response = self.call(path='/dial')
+        self.assertTwiML(response)
+        self.assertTrue('Dial' in response.data, "Did not find Dial " \
+                "in agent call-in app, instead %s" % response.data)
