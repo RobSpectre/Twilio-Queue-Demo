@@ -14,7 +14,7 @@ def queue():
     response.enqueue("GA Demo Night", waitUrl="/wait")
     return str(response)
 
-@app.route('/connect', methods=['POST'])
+@app.route('/connect', methods=['GET', 'POST'])
 def connect():
     response = twiml.Response()
     response.say("You are now connecting to a representative.")
@@ -28,7 +28,7 @@ def wait():
     response.play("http://demo.brooklynhacker.com/music/ramones.mp3")
     return str(response)
 
-@app.route('/dial', methods=['POST'])
+@app.route('/dial', methods=['GET', 'POST'])
 def dial():
     response = twiml.Response()
     with response.dial() as dial:
