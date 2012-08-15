@@ -11,14 +11,14 @@ app = flask.Flask(__name__)
 @app.route('/queue', methods=['GET', 'POST'])
 def queue():
     response = twiml.Response()
-    response.enqueue("GA Demo Night", wait_url="/wait")
+    response.enqueue("GA Demo Night", waitUrl="/wait")
     return str(response)
 
 @app.route('/wait', methods=['GET', 'POST'])
 def wait():
     response = twiml.Response()
     response.say("You are number %s in line.  Please hold." %
-            request.form['QueuePosition'])
+        request.form['QueuePosition'])
     response.play("http://demo.brooklynhacker.com/music/ramones.mp3")
     return str(response)
 
