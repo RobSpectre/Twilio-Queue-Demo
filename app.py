@@ -22,7 +22,7 @@ def wait():
 @app.route('/dial', methods=['POST'])
 def dial():
     response = twiml.Response()
-    with response.dial() in dial:
+    with response.dial() as dial:
         dial.queue("Queue Demo")
     return str(response)
 
