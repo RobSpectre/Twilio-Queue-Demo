@@ -25,7 +25,7 @@ def wait():
 def dial():
     response = twiml.Response()
     with response.dial() as dial:
-        dial.queue("GA Demo Night", url='/connect')
+        dial.queue("GA Demo Night", url='/connect', method='POST')
     return str(response)
 
 @app.route('/connect', methods=['POST'])
