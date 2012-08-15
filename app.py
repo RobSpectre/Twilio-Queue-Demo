@@ -11,7 +11,13 @@ app = flask.Flask(__name__)
 @app.route('/queue', methods=['GET', 'POST'])
 def queue():
     response = twiml.Response()
-    response.enqueue("GA Demo Night", waitUrl="/wait")
+    response.enqueue("GA Demo Night", action="/connect", waitUrl="/wait")
+    return str(response)
+
+@app.route('/connect', methods=['POST'])
+def connect():
+    response = twiml.Response()
+    response.say("You are now connecting to a representative.")
     return str(response)
 
 @app.route('/wait', methods=['GET', 'POST'])
