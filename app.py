@@ -19,6 +19,13 @@ def wait():
     response.play("http://demo.brooklynhacker.com/music/ramones.mp3")
     return str(response)
 
+@app.route('/dial', methods=['POST'])
+def dial():
+    response = twiml.Response()
+    with response.dial() as dial:
+        dial.queue("GA Demo Night")
+    return str(response)
+
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.debug = True
