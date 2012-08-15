@@ -11,7 +11,7 @@ app = flask.Flask(__name__)
 @app.route('/queue', methods=['GET', 'POST'])
 def queue():
     response = twiml.Response()
-    response.enqueue("GA Demo Night", action="/connect", waitUrl="/wait")
+    response.enqueue("GA Demo Night", waitUrl="/wait")
     return str(response)
 
 @app.route('/connect', methods=['POST'])
@@ -32,7 +32,7 @@ def wait():
 def dial():
     response = twiml.Response()
     with response.dial() as dial:
-        dial.queue("GA Demo Night")
+        dial.queue("GA Demo Night", url="/connect")
     return str(response)
 
 @app.route('/client')
