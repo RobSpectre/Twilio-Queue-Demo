@@ -1,138 +1,37 @@
-# Twilio Hackpack for Heroku and Flask
+# Queue Demo 
 
-An easy-to-use repo to kickstart your Twilio app using Flask and deploy onto
-Heroku.  Easy to clone, easy to tweak, easy to deploy.
+A fun five minute demo in Python featuring the new TwiML verb Queue and Twilio
+Client.
 
-[![Build
-Status](https://secure.travis-ci.org/RobSpectre/Twilio-Hackpack-for-Heroku-and-Flask.png)]
-(http://travis-ci.org/RobSpectre/Twilio-Hackpack-for-Heroku-and-Flask)
+## Features 
 
+This demo highlights the following features:
 
-## Features
+* The [Enqueue](http://www.twilio.com/docs/api/twiml/enqueue) verb to place
+  callers in a Queue with a custom waiting room.
+* The [Queue](http://www.twilio.com/docs/api/twiml/queue) noun to connect the
+  agent to the first person in the queue with a custom whisper for the
+  dequeueing caller.
+* [Twilio Client for Javascript](http://www.twilio.com/docs/client/twilio-js) to
+  place the callers in the audience on the PA through the demoing devangel's
+  laptop.
 
-Look at all these crazy features!
-
-* [Twilio Client](http://www.twilio.com/api/client) - This hackpack ships 
-  with a base Jinja2 template for Twilio Client already configured and ready to
-  call.  
-* Automagic Configuration - Just run `python configure.py --account_sid ACxxxx --auth_token yyyyy` 
-  and the hackpack configures Twilio and Heroku for you.
-* Production Ready - The [production branch](https://github.com/RobSpectre/Twilio-Hackpack-for-Heroku-and-Flask/tree/production)
-  features a few more settings and dependencies to make the hackpack ready to
-  put into live service.
-* Plug-and-Play - Procfile, requirements.txt and Makefile make installation
-  and usage a breeze.
-* Boilerplate - All the Flask app boilerplate with example Voice and SMS 
-  Request URLs ready for use on Twilio.
-* Testing - Easy base class for unit testing with example tests, nose ready.
-* PEP8 - It's good for you!
+## Outline 
 
 
-## Usage
+## Installation 
 
-This hackpack ships with two ready-to-go endpoints for your Twilio Voice and SMS
-apps.  The two routes /voice and /sms contain two examples you can modify
-easily.
+Here's how to install this demo on your local environment.
 
-For example, here is a quick Twilio Voice app that plays some Ramones.
-
-```python
-@app.route('/voice', methods=['POST'])
-def voice():
-    response = twiml.Response()
-    response.play("http://example.com/music/ramones.mp3")
-    return str(response)
-```
-
-SMS apps are similarly easy.
-
-```python
-@app.route('/sms', methods=['POST'])
-def sms():
-    response = twiml.Response()
-    response.sms("The Ramones are great!")
-    return str(response)
-```
-
-These apps can get interactive pretty quickly.  For example, let's make an SMS
-app that responds with "Best band ever" when you text RAMONES.
-
-```python
-@app.route('/sms', methods=['POST'])
-def sms():
-    response = twiml.Response()
-    body = request.form['Body']
-    if "RAMONES" in body:
-        response.sms("Best band ever.")
-    else:
-        response.sms("Not the best band ever.")
-    return str(response)
-```
-
-You can apply this same concept to
-[Gathering](http://www.twilio.com/docs/api/twiml/gather) user input on Twilio
-Voice.  Here we will Gather the user input with one route and then handle the
-user input with another.
-
-```python
-@app.route('/voice', methods=['POST'])
-def voice():
-    response = twiml.Response()
-    with response.gather(numDigits=1, action="/gather") as gather:
-        gather.say("Press 1 to indicate The Ramones are the best band ever.")
-    return str(response)
-
-@app.route('/gather', methods=['POST'])
-def gather():
-    response = twiml.Response()
-    digits = request.form['Digits']
-    if digits == "1":
-        response.say("You are correct.  The Ramones are the best.")
-    else:
-        response.say("You are wrong.  Never call me again.")
-    return str(response)
-```
-
-## Installation
-
-Step-by-step on how to deploy, configure and develop on this hackpack.
-
-### Getting Started 
-
-1) Grab latest source
-<pre>
-git clone git://github.com/RobSpectre/Twilio-Hackpack-for-Heroku-and-Flask.git 
-</pre>
-
-2) Navigate to folder and create new Heroku Cedar app
-<pre>
-heroku create --stack cedar
-</pre>
-
-3) Deploy to Heroku
-<pre>
-git push heroku master
-</pre>
-
-4) Scale your dynos
-<pre>
-heroku scale web=1
-</pre>
-
-5) Visit the home page of your new Heroku app to see your newly configured app!
-<pre>
-heroku open
-</pre>
 
 
 ### Configuration
 
-Want to use the built-in Twilio Client template?  Configure your hackpack with
-three easy options.
+Here's how to configure your local and Heroku host for use with the demo.
 
 #### Automagic Configuration
 
-This hackpack ships with an auto-configure script that will create a new TwiML
+This demo ships with an auto-configure script that will create a new TwiML
 app, purchase a new phone number, and set your Heroku app's environment
 variables to use your new settings.  Here's a quick step-by-step:
 
@@ -216,64 +115,14 @@ foreman start
 
 ## Testing
 
-This hackpack comes with a full testing suite ready for nose.
+This demo comes with a full testing suite ready for nose.
 
 <pre>
 make test
 </pre>
 
-It also ships with an easy-to-use base class for testing your
-[TwiML](http://www.twilio.com/docs/api/twiml).  For example, testing a basic SMS
-response is only two lines of code:
-
-```python
-import test_twilio
-
-class ExampleTest(test_twilio.TwiMLTest):
-    response = self.sms("Test")
-    self.assertTwiML(response)
-```
-
-You can also test your [Gather
-verbs](http://www.twilio.com/docs/api/twiml/gather) for voice apps very easily.
-
-```python
-import test_twilio
-
-class ExampleTest(test_twilio.TwiMLTest):
-    response = self.call(digits="1")
-    self.assertTwiML(response)
-```
-
-
-## Branches
-
-Two configurations are available in different branches:
-
-* master - Default dev mode with minimum possible code to get going.
-* production - Intended for live use with more code and dependencies appropriate
-  to a production environment. To deploy this branch instead, adjust your
-  procedure for the production branch:
-
-<pre>
-git checkout production
-git push heroku production:master
-</pre>
-
 
 ## Meta 
 
-* No warranty expressed or implied.  Software is as is. Diggity.
-* [MIT License](http://www.opensource.org/licenses/mit-license.html)
-* Lovingly crafted by [Twilio New
- York](http://www.meetup.com/Twilio/New-York-NY/) 
-
-
-## Community Contributors
-
-Here we recognize crack members of the Twilio community who worked on this
-hackpack.
-
-* [Timothée Boucher](http://www.timotheeboucher.com/) - idea for production
-  branch
-* [Oscar](http://labcoder.com/) - Bug fix for user input
+* Author: [Rob Spectre](http://www.brooklynhacker.com/)
+* Lovingly crafted in Brooklyn, NY.
