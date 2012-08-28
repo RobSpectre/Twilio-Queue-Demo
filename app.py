@@ -8,22 +8,14 @@ app = flask.Flask(__name__)
 @app.route('/queue', methods=['POST'])
 def queue():
     response = twiml.Response()
-    response.enqueue('GA Demo Night', waitUrl='/wait')
+    response.enqueue("Marketing Demo Jam", waitUrl="/wait")
     return str(response)
 
 @app.route('/wait', methods=['POST'])
 def wait():
     response = twiml.Response()
-    response.say("Hello there - you are number %s in the queue." %
-            request.form['QueuePosition'])
+    response.say("You are number %s in line." % request.form['QueuePosition'])
     response.play("http://demo.brooklynhacker.com/music/ramones.mp3")
-    return str(response)
-
-@app.route('/dial', methods=['POST'])
-def dial():
-    response = twiml.Response()
-    with response.dial() as dial:
-        dial.queue("GA Demo Night")
     return str(response)
 
 if __name__ == "__main__":
