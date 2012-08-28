@@ -18,6 +18,13 @@ def wait():
     response.play("http://demo.brooklynhacker.com/music/ramones.mp3")
     return str(response)
 
+@app.route('/callin', methods=['POST'])
+def callin():
+    response = twiml.Response()
+    with response.dial() as dial:
+        dial.queue("Marketing Demo Jam")
+    return str(response)
+
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.debug = True
