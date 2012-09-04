@@ -5,6 +5,11 @@ Client.  This little step-by-step guide takes you through building your own demo
 with Twilio's new [<Queue>](http://www.twilio.com/docs/api/twiml/queue) TwiML
 verb.
 
+
+[![Build
+Status](https://secure.travis-ci.org/RobSpectre/Twilio-Queue-Demo.png)]
+(http://travis-ci.org/RobSpectre/Twilio-Queue-Demo)
+
 Want to take Queue for a spin or show it to your friends? Try this below.
 
 ## Features 
