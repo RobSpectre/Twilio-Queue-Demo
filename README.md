@@ -1,8 +1,11 @@
 # Queue Demo 
 
-A fun five minute demo in Python featuring the new TwiML verb Queue and Twilio
-Client.
+A fun ten minute demo in Python featuring the new TwiML verb Queue and Twilio
+Client.  This little step-by-step guide takes you through building your own demo
+with Twilio's new [<Queue>](http://www.twilio.com/docs/api/twiml/queue) TwiML
+verb.
 
+Want to take Queue for a spin or show it to your friends? Try this below.
 
 ## Features 
 
@@ -81,7 +84,7 @@ see finished product, check out `app.py`.
             @app.route('/queue', methods=['POST'])
             def queue():
                 response = twiml.Response()
-                response.enqueue("Demo Queue", waitUrl="/wait")
+                response.enqueue("Queue Diggity Demo", waitUrl="/wait")
                 return str(response)
             ```
 
@@ -94,7 +97,7 @@ see finished product, check out `app.py`.
                 response = twiml.Response()
                 response.say("You are number %s in the queue. Please hold." %
                         request.form['QueuePosition'])
-                response.play("http://demo.brooklynhacker.com/music/ramones.mp3")
+                response.play("http://com.twilio.music.rock.s3.amazonaws.com/jlbrock44_-_Apologize_Guitar_DropC.mp3")
                 return str(response)
             ```
 
@@ -130,7 +133,7 @@ see finished product, check out `app.py`.
             def dial():
                 response = twiml.Response()
                 with response.dial() as dial:
-                    dial.queue("Queue Demo")
+                    dial.queue("Queue Diggity Demo") 
                 return str(response)
             ```
 
@@ -332,5 +335,6 @@ make test
 
 ## Meta 
 
-* Author: [Rob Spectre](http://www.brooklynhacker.com/)
-* Lovingly crafted in Brooklyn, NY.
+* No warranty expressed or implied. Software is as is. Diggity.
+* [MIT License](http://www.opensource.org/licenses/mit-license.html).
+* Lovingly crafted by [Twilio New York](http://www.meetup.com/Twilio/New-York-NY/).

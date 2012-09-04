@@ -5,24 +5,28 @@ import os
 
 app = flask.Flask(__name__)
 
-@app.route('/queue', methods=['POST'])
+
+@app.route('/caller', methods=['POST'])
 def queue():
     response = twiml.Response()
-    response.enqueue("Marketing Demo Jam", waitUrl="/wait")
+    response.enqueue("Queue Diggity Demo", waitUrl="/wait")
     return str(response)
+
 
 @app.route('/wait', methods=['POST'])
 def wait():
     response = twiml.Response()
     response.say("You are number %s in line." % request.form['QueuePosition'])
-    response.play("http://demo.brooklynhacker.com/music/ramones.mp3")
+    response.play("http://com.twilio.music.rock.s3.amazonaws.com/" \
+            "jlbrock44_-_Apologize_Guitar_DropC.mp3")
     return str(response)
 
-@app.route('/callin', methods=['POST'])
+
+@app.route('/agent', methods=['POST'])
 def callin():
     response = twiml.Response()
     with response.dial() as dial:
-        dial.queue("Marketing Demo Jam")
+        dial.queue("Queue Diggity Demo")
     return str(response)
 
 if __name__ == "__main__":

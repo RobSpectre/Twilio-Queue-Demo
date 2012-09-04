@@ -38,9 +38,9 @@ class TwiMLTest(unittest.TestCase):
         return self.app.post(path, data=params)
 
 
-class ExampleTests(TwiMLTest):
-    def test_queue(self):
-        response = self.call(path='/queue')
+class TwilioTests(TwiMLTest):
+    def test_caller(self):
+        response = self.call(path='/caller')
         self.assertTwiML(response)
         self.assertTrue('Enqueue' in response.data, "Did not find Enqueue " \
                 "verb in the response, instead: %s" % response.data)
@@ -53,8 +53,8 @@ class ExampleTests(TwiMLTest):
         self.assertTrue('Play' in response.data, "Did not find hold " \
                 "music in waiting room, instead %s" % response.data)
 
-    def test_dial(self):
-        response = self.call(path='/dial')
+    def test_agent(self):
+        response = self.call(path='/agent')
         self.assertTwiML(response)
         self.assertTrue('Dial' in response.data, "Did not find Dial " \
                 "in agent call-in app, instead %s" % response.data)
