@@ -343,3 +343,7 @@ make test
 * No warranty expressed or implied. Software is as is. Diggity.
 * [MIT License](http://www.opensource.org/licenses/mit-license.html).
 * Lovingly crafted by [Twilio New York](http://www.meetup.com/Twilio/New-York-NY/).
+
+[![githalytics.com
+alpha](https://cruel-carlota.pagodabox.com/d7605cc629c4785e4e5a4519279d82c3
+"githalytics.com")](http://githalytics.com/RobSpectre/Twilio-Queue-Demo)
